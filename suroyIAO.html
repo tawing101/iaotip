@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>suroyIAO | Siargao</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg: #F7FAFC;
+            --text: #2D3748;
+            --light-text: #718096;
+            --card-bg: #FFFFFF;
+            --accent: #25D366;
+            --border: #EDF2F7;
+        }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; line-height: 1.6; scroll-behavior: smooth; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        .navbar { background: #fff; padding: 1rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .navbar a { margin: 0 8px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .header { text-align: center; padding: 3rem 1.5rem 1rem; }
+        .header h1 { font-size: 2.2rem; margin: 0; letter-spacing: -1px; }
+        .header p { color: var(--light-text); font-size: 1rem; margin-top: 5px; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        @media(min-width: 768px) {
+            .container { grid-template-columns: 1fr 1fr; }
+            .full-width { grid-column: 1 / -1; }
+        }
+
+        .card { background: var(--card-bg); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+        .card h2 { margin-top: 0; font-size: 1.1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .condition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .condition-stat { background: var(--bg); padding: 1rem; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+        .stat-label { font-size: 0.7rem; color: var(--light-text); text-transform: uppercase; display: block; }
+        .stat-value { font-size: 1.1rem; font-weight: 600; }
+
+        .item { margin-bottom: 1.5rem; }
+        .item-title { font-weight: 600; display: block; font-size: 1.05rem; }
+        .item-desc { color: var(--light-text); font-size: 0.9rem; margin-top: 2px; display: block; }
+        
+        a { color: inherit; text-decoration: none; transition: 0.2s; }
+        a:hover { color: var(--accent); }
+
+        .feed-ad { text-align: center; padding: 0.5rem 0; overflow: hidden; }
+        .ad-placeholder { background: #ebf0f5; border-radius: 12px; padding: 1rem; min-height: 100px; display: flex; flex-direction: column; justify-content: center; }
+        .ad-label { font-size: 0.6rem; color: #a0aec0; text-transform: uppercase; margin-bottom: 5px; }
+
+        /* FOOTER STYLING */
+        footer {
+            background: #fff;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        .footer-text { font-size: 0.85rem; color: var(--light-text); letter-spacing: 0.5px; }
+        .footer-brand { font-weight: 600; color: var(--text); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#conditions">Conditions</a>
+        <a href="#eat">Eat</a>
+        <a href="#island">Adventures</a>
+        <a href="#north">North Trip</a>
+        <a href="#rescue">Rescue</a>
+    </nav>
+
+    <div class="header">
+        <h1>suroyIAO 🌴</h1>
+        <p>Your minimalist guide to Siargao Island</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="card full-width" id="conditions">
+            <h2>🌊 Live Conditions</h2>
+            <div class="condition-grid">
+                <div class="condition-stat"><span class="stat-label">Current Tide</span><span id="tide-status" class="stat-value">Loading...</span></div>
+                <div class="condition-stat"><span class="stat-label">Wind Speed</span><span id="wind-speed" class="stat-value">-- kph</span></div>
+                <div class="condition-stat"><span class="stat-label">Surf Height</span><span class="stat-value">3-5 ft</span></div>
+                <div class="condition-stat"><span class="stat-label">Sunrise</span><span id="sunrise-time" class="stat-value">--:--</span></div>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--light-text); margin-top: 1.2rem; text-align: center;">
+                Approximate for General Luna. Check <a href="https://www.surfline.com/surf-report/cloud-9/5842041f4e65fad6a7708d7a" target="_blank" style="text-decoration: underline; font-weight: 600;">Surfline</a> for live cams.
+            </p>
+        </div>
+
+        <div class="card" id="eat">
+            <h2>🍽️ Eat & Drink</h2>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Shaka+Cafe+Siargao" target="_blank">Shaka Cafe 📍</a></span>
+                <span class="item-desc">Legendary smoothie bowls and coffee.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Kermit+Siargao" target="_blank">Kermit 📍</a></span>
+                <span class="item-desc">Famous pizza and authentic Italian favorites.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Bravo+Siargao" target="_blank">Bravo 📍</a></span>
+                <span class="item-desc">Spanish tapas and beachfront views.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Mama's+Grill+Siargao" target="_blank">Mama's Grill 📍</a></span>
+                <span class="item-desc">Cheap and delicious local Filipino BBQ.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Kaimana+Siargao" target="_blank">Kaimana 📍</a></span>
+                <span class="item-desc">Upscale dining with local ingredients.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Siago+Siargao" target="_blank">Siago 📍</a></span>
+                <span class="item-desc">Great cocktails and sunset dinners.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/CEV+Siargao" target="_blank">CEV 📍</a></span>
+                <span class="item-desc">Fresh Kinilaw and seafood bowls.</span>
+            </div>
+        </div>
+
+        <div class="card" id="island">
+            <h2>📍 Island Adventures</h2>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Cloud+9+Boardwalk" target="_blank">Cloud 9 📍</a></span>
+                <span class="item-desc">Surf boardwalk and sunrise view.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/General+Luna+Port+Island+Hopping" target="_blank">Tri-Island Hopping 📍</a></span>
+                <span class="item-desc">Naked, Daku, and Guyam islands.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Maasin+River+Bent+Palm" target="_blank">Maasin River 📍</a></span>
+                <span class="item-desc">The bent palm tree and river boat ride.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Coconut+Road+View+Deck+Siargao" target="_blank">Coconut Road 📍</a></span>
+                <span class="item-desc">The famous view deck photo spot.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Secret+Beach+Siargao" target="_blank">Secret Beach 📍</a></span>
+                <span class="item-desc">Quiet palm-lined hideaway past Dapa.</span>
+            </div>
+        </div>
+
+        <div class="full-width feed-ad">
+            <div class="ad-placeholder">
+                <span class="ad-label">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567890"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </div>
+
+        <div class="card full-width" id="north">
+            <h2>🌴 The North Trip</h2>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/HUNI+Siargao" target="_blank">HUNI Siargao 📍</a></span>
+                <span class="item-desc">Riverside sanctuary in San Isidro. Silence is medicine.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Pacifico+Beach+Siargao" target="_blank">Pacifico Beach 📍</a></span>
+                <span class="item-desc">Quiet white sand and long reef breaks.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Magpupungko+Rock+Pools" target="_blank">Magpupungko 📍</a></span>
+                <span class="item-desc">Natural rock pools (Go at low tide).</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Alegria+Beach+Siargao" target="_blank">Alegria Beach 📍</a></span>
+                <span class="item-desc">Pristine white sand in the far north.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Taktak+Falls+Siargao" target="_blank">Taktak Falls 📍</a></span>
+                <span class="item-desc">The island's only waterfall in Santa Monica.</span>
+            </div>
+            <div class="item">
+                <span class="item-title"><a href="https://www.google.com/maps/search/Tayangban+Cave+Pool" target="_blank">Tayangban Cave 📍</a></span>
+                <span class="item-desc">Canyoning and swimming through caves.</span>
+            </div>
+        </div>
+
+        <div class="card full-width" id="rescue">
+            <h2>📞 Rescue & Medical</h2>
+            <div class="item">
+                <span class="item-title">General Luna Clinics (24/7)</span>
+                <span class="item-desc">MetroDocs: 0919 058 5858 | Island Doctors: 0917 848 4357</span>
+            </div>
+            <div class="item">
+                <span class="item-title">Hospitals</span>
+                <span class="item-desc">Siargao Island Medical Center (Dapa): 0948 900 6922</span>
+                <span class="item-desc">GL Rural Health Unit: 0938 448 5059</span>
+            </div>
+            <div class="item">
+                <span class="item-title">Police & Authorities</span>
+                <span class="item-desc">GL Police: 0998 598 7338 | San Isidro Police: 0905 544 7050</span>
+                <span class="item-desc">Coast Guard: 0948 833 4880 | GL Fire: 0931 721 8779</span>
+            </div>
+        </div>
+
+        <div class="full-width feed-ad">
+            <div class="ad-placeholder">
+                <span class="ad-label">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0987654321"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-text">
+            <span class="footer-brand">suroyIAO</span> &copy; 2026<br>
+            Handcrafted with 🌴 in Siargao
+        </div>
+    </footer>
+
+    <script>
+        async function fetchConditions() {
+            try {
+                const lat = 9.7966, lng = 126.1517;
+                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=wind_speed_10m&daily=sunrise&timezone=auto`);
+                const data = await res.json();
+                document.getElementById('wind-speed').innerText = `${Math.round(data.current.wind_speed_10m)} kph`;
+                document.getElementById('sunrise-time').innerText = data.daily.sunrise[0].split('T')[1];
+                const hours = new Date().getHours();
+                document.getElementById('tide-status').innerText = (hours % 12 < 6) ? "Rising ↗" : "Falling ↘";
+            } catch (e) { console.error("Update error:", e); }
+        }
+        fetchConditions();
+    </script>
+</body>
+</html>
