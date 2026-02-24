@@ -16,6 +16,8 @@
             --card-bg: #FFFFFF;
             --accent: #25D366;
             --border: #EDF2F7;
+            --emer-bg: #FFF5F5;
+            --emer-text: #C53030;
         }
         body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; line-height: 1.6; scroll-behavior: smooth; display: flex; flex-direction: column; min-height: 100vh; }
         
@@ -24,7 +26,6 @@
         
         .header { text-align: center; padding: 3rem 1.5rem 1rem; }
         .header h1 { font-size: 2.2rem; margin: 0; letter-spacing: -1px; }
-        .header p { color: var(--light-text); font-size: 1rem; margin-top: 5px; }
 
         .container {
             max-width: 900px;
@@ -41,8 +42,8 @@
             .full-width { grid-column: 1 / -1; }
         }
 
-        .card { background: var(--card-bg); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
-        .card h2 { margin-top: 0; font-size: 1.1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .card { background: var(--card-bg); border-radius: 20px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid var(--border); }
+        .card h2 { margin-top: 0; font-size: 1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 1px; color: var(--light-text); }
         
         .condition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
         .condition-stat { background: var(--bg); padding: 1rem; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
@@ -50,34 +51,36 @@
         .stat-value { font-size: 1.1rem; font-weight: 600; }
 
         .item { margin-bottom: 1.5rem; }
-        .item-title { font-weight: 600; display: block; font-size: 1.05rem; }
-        .item-desc { color: var(--light-text); font-size: 0.9rem; margin-top: 2px; display: block; }
-        
-        a { color: inherit; text-decoration: none; transition: 0.2s; }
-        a:hover { color: var(--accent); }
+        .item-link { font-weight: 600; font-size: 1.05rem; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); transition: 0.2s; }
+        .item-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+        .item-desc { color: var(--light-text); font-size: 0.9rem; margin-top: 4px; display: block; }
 
-        .feed-ad { text-align: center; padding: 0.5rem 0; overflow: hidden; }
-        .ad-placeholder { background: #ebf0f5; border-radius: 12px; padding: 1rem; min-height: 100px; display: flex; flex-direction: column; justify-content: center; }
-        .ad-label { font-size: 0.6rem; color: #a0aec0; text-transform: uppercase; margin-bottom: 5px; }
+        /* REFINED EMERGENCY STYLING */
+        .emergency-card { background: var(--emer-bg); border: 1px solid #FED7D7; }
+        .emergency-card h2 { color: var(--emer-text); border-bottom-color: #FEB2B2; }
+        .emer-item { background: #fff; padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem; border: 1px solid #FEB2B2; }
+        .emer-title { color: var(--emer-text); font-weight: 600; display: block; font-size: 1rem; text-decoration: underline; }
+        .emer-num { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-top: 5px; }
+
+        .ad-placeholder { background: #ebf0f5; border-radius: 12px; padding: 1rem; text-align: center; min-height: 100px; display: flex; flex-direction: column; justify-content: center; margin: 1rem 0; }
 
         footer { background: #fff; padding: 2rem 1.5rem; text-align: center; border-top: 1px solid var(--border); margin-top: 2rem; }
-        .footer-text { font-size: 0.85rem; color: var(--light-text); letter-spacing: 0.5px; }
-        .footer-brand { font-weight: 600; color: var(--text); }
+        .footer-text { font-size: 0.8rem; color: var(--light-text); letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="#conditions">Conditions</a>
+        <a href="#conditions">Live</a>
         <a href="#eat">Eat</a>
-        <a href="#island">Adventures</a>
-        <a href="#north">North Trip</a>
+        <a href="#island">Island</a>
+        <a href="#north">North</a>
         <a href="#rescue">Rescue</a>
     </nav>
 
     <div class="header">
         <h1>suroyIAO 🌴</h1>
-        <p>Your local guide to Siargao Island</p>
+        <p>Live from General Luna, Siargao Island</p>
     </div>
 
     <div class="container">
@@ -90,123 +93,124 @@
                 <div class="condition-stat"><span class="stat-label">Surf Height</span><span class="stat-value">3-5 ft</span></div>
                 <div class="condition-stat"><span class="stat-label">Sunrise</span><span id="sunrise-time" class="stat-value">--:--</span></div>
             </div>
+            <p style="font-size: 0.75rem; color: var(--light-text); margin-top: 1.2rem; text-align: center;">
+                View live waves on <a href="https://www.surfline.com/surf-report/cloud-9/5842041f4e65fad6a7708d7a" target="_blank" style="font-weight: 600; color: #3182ce;">Surfline Cam</a>
+            </p>
         </div>
 
         <div class="card" id="eat">
             <h2>🍽️ Eat & Drink</h2>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Siago+Beach+Resort+Siargao" target="_blank">Siago Beach Resort 📍</a></span>
-                <span class="item-desc">Upscale beachfront dining & sunset cocktails.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Siago+Beach+Resort" target="_blank" class="item-link">Siago Beach Resort 📍</a>
+                <span class="item-desc">Beachfront dining & sunset cocktails.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Shaka+Cafe+Siargao" target="_blank">Shaka Cafe 📍</a></span>
-                <span class="item-desc">Legendary smoothie bowls and coffee.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Shaka+Cafe+Siargao" target="_blank" class="item-link">Shaka Cafe 📍</a>
+                <span class="item-desc">Healthy smoothie bowls and coffee.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Kermit+Siargao" target="_blank">Kermit 📍</a></span>
-                <span class="item-desc">Famous pizza and Italian island favorites.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Kermit+Siargao" target="_blank" class="item-link">Kermit Siargao 📍</a>
+                <span class="item-desc">Famous pizza and authentic Italian.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Bravo+Resort+Siargao" target="_blank">Bravo 📍</a></span>
-                <span class="item-desc">Spanish tapas and great beachfront energy.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Bravo+Beach+Resort+Siargao" target="_blank" class="item-link">Bravo 📍</a>
+                <span class="item-desc">Spanish tapas and great vibes.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Mama's+Grill+Siargao" target="_blank">Mama's Grill 📍</a></span>
-                <span class="item-desc">Legendary, affordable local Filipino BBQ.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Mama's+Grill+Siargao" target="_blank" class="item-link">Mama's Grill 📍</a>
+                <span class="item-desc">Affordable local Filipino BBQ.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Kaimana+Siargao" target="_blank">Kaimana 📍</a></span>
-                <span class="item-desc">Upscale dining with fresh local ingredients.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Kaimana+Siargao" target="_blank" class="item-link">Kaimana 📍</a>
+                <span class="item-desc">Upscale dining, local ingredients.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=CEV+Siargao" target="_blank">CEV 📍</a></span>
-                <span class="item-desc">Modern Kinilaw and fresh seafood bowls.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=CEV+Siargao" target="_blank" class="item-link">CEV 📍</a>
+                <span class="item-desc">Modern Kinilaw and seafood.</span>
             </div>
         </div>
 
         <div class="card" id="island">
             <h2>📍 Island Adventures</h2>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Cloud+9+Surfing+Area" target="_blank">Cloud 9 📍</a></span>
-                <span class="item-desc">The iconic boardwalk and main surf break.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Cloud+9+Boardwalk" target="_blank" class="item-link">Cloud 9 Boardwalk 📍</a>
+                <span class="item-desc">The iconic boardwalk and surf break.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=General+Luna+Local+Port" target="_blank">Tri-Island Hopping 📍</a></span>
-                <span class="item-desc">Boats to Naked, Daku, and Guyam islands.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=General+Luna+Port" target="_blank" class="item-link">Tri-Island Hopping 📍</a>
+                <span class="item-desc">Naked, Daku, and Guyam islands.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Maasin+River+Bridge" target="_blank">Maasin River 📍</a></span>
-                <span class="item-desc">The famous bent palm tree & river cruise.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Maasin+Bridge+Bent+Palm+Tree" target="_blank" class="item-link">Maasin River 📍</a>
+                <span class="item-desc">Bent palm tree and river boat rides.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Coconut+View+Deck+Siargao" target="_blank">Coconut Road 📍</a></span>
-                <span class="item-desc">The famous "Sea of Palms" view deck.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Coconut+View+Deck+Siargao" target="_blank" class="item-link">Coconut View Deck 📍</a>
+                <span class="item-desc">Panoramic "Sea of Palms" view.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Secret+Beach+Siargao" target="_blank">Secret Beach 📍</a></span>
-                <span class="item-desc">A hidden palm-lined hideaway past Dapa.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Secret+Beach+Siargao" target="_blank" class="item-link">Secret Beach 📍</a>
+                <span class="item-desc">Hidden hideaway past Dapa.</span>
             </div>
         </div>
 
-        <div class="full-width feed-ad">
-            <div class="ad-placeholder">
-                <span class="ad-label">Advertisement</span>
-                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567890"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
+        <div class="full-width ad-placeholder">
+            <span style="font-size:0.6rem; color:#a0aec0">ADVERTISEMENT</span>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567890" data-ad-format="auto"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
         <div class="card full-width" id="north">
             <h2>🌴 The North Trip</h2>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=HUNI+Siargao" target="_blank">HUNI Siargao 📍</a></span>
-                <span class="item-desc">Riverside sanctuary in San Isidro. Silence is medicine.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=HUNI+Siargao" target="_blank" class="item-link">HUNI Siargao 📍</a>
+                <span class="item-desc">Riverside sanctuary in San Isidro.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Pacifico+Beach+Siargao" target="_blank">Pacifico Beach 📍</a></span>
-                <span class="item-desc">Quiet white sand beach with a relaxed surf vibe.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Pacifico+Beach+Siargao" target="_blank" class="item-link">Pacifico Beach 📍</a>
+                <span class="item-desc">Quiet white sand and surf vibes.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Magpupungko+Rock+Pools" target="_blank">Magpupungko 📍</a></span>
-                <span class="item-desc">Natural tidal rock pools (Go during low tide).</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Magpupungko+Rock+Pools" target="_blank" class="item-link">Magpupungko Pools 📍</a>
+                <span class="item-desc">Natural rock pools (Low tide only).</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Alegria+Beach+Siargao" target="_blank">Alegria Beach 📍</a></span>
-                <span class="item-desc">The most peaceful, pristine beach in the North.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Alegria+Beach+Siargao" target="_blank" class="item-link">Alegria Beach 📍</a>
+                <span class="item-desc">Pristine beach in the far North.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Taktak+Falls+Siargao" target="_blank">Taktak Falls 📍</a></span>
-                <span class="item-desc">Siargao's only waterfall located in Santa Monica.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Taktak+Falls+Siargao" target="_blank" class="item-link">Taktak Falls 📍</a>
+                <span class="item-desc">The only waterfall in Santa Monica.</span>
             </div>
             <div class="item">
-                <span class="item-title"><a href="https://www.google.com/maps/dir/?api=1&destination=Tayangban+Cave+Pool" target="_blank">Tayangban Cave 📍</a></span>
-                <span class="item-desc">Canyoning and swimming through inland caves.</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Tayangban+Cave+Pool" target="_blank" class="item-link">Tayangban Cave 📍</a>
+                <span class="item-desc">Canyoning and cave swimming.</span>
             </div>
         </div>
 
-        <div class="card full-width" id="rescue">
+        <div class="card full-width emergency-card" id="rescue">
             <h2>📞 Rescue & Medical</h2>
-            <div class="item">
-                <span class="item-title">General Luna Clinics (24/7)</span>
-                <span class="item-desc">MetroDocs: 0919 058 5858 | Island Doctors: 0917 848 4357</span>
+            
+            <div class="emer-item">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Siargao+Island+Medical+Center" target="_blank" class="emer-title">Siargao Medical Center (Dapa Hospital) 🚑</a>
+                <span class="emer-num">Call: <a href="tel:09489006922">0948 900 6922</a></span>
             </div>
-            <div class="item">
-                <span class="item-title">Hospitals & Government</span>
-                <span class="item-desc">Siargao Medical Center (Dapa): 0948 900 6922</span>
-                <span class="item-desc">GL Rural Health Unit: 0938 448 5059</span>
-            </div>
-            <div class="item">
-                <span class="item-title">Police & Fire Authorities</span>
-                <span class="item-desc">GL Police: 0998 598 7338 | San Isidro Police: 0905 544 7050</span>
-                <span class="item-desc">Coast Guard: 0948 833 4880 | GL Fire: 0931 721 8779</span>
-            </div>
-        </div>
 
-        <div class="full-width feed-ad">
-            <div class="ad-placeholder">
-                <span class="ad-label">Advertisement</span>
-                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0987654321"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <div class="emer-item">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=MetroDocs+Clinic+General+Luna" target="_blank" class="emer-title">MetroDocs Clinic (General Luna) 📍</a>
+                <span class="emer-num">Call: <a href="tel:09190585858">0919 058 5858</a></span>
+            </div>
+
+            <div class="emer-item">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Island+Doctors+General+Luna" target="_blank" class="emer-title">Island Doctors (General Luna) 📍</a>
+                <span class="emer-num">Call: <a href="tel:09178484357">0917 848 4357</a></span>
+            </div>
+
+            <div class="emer-item" style="border-style: dashed;">
+                <span style="font-weight:600; color:var(--emer-text); display:block; margin-bottom:5px;">Emergency Hotlines</span>
+                <span class="emer-num">GL Police: <a href="tel:09985987338">0998 598 7338</a></span>
+                <span class="emer-num">Coast Guard: <a href="tel:09488334880">0948 833 4880</a></span>
+                <span class="emer-num">GL Fire: <a href="tel:09317218779">0931 721 8779</a></span>
             </div>
         </div>
 
@@ -214,7 +218,7 @@
 
     <footer>
         <div class="footer-text">
-            <span class="footer-brand">suroyIAO</span> © 2026<br>
+            <span style="font-weight: 600; color: var(--text);">suroyIAO</span> © 2026<br>
             Handcrafted with 🌴 in Siargao
         </div>
     </footer>
