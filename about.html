@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | suroyIAO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906936846344562"
+     crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg: #F0F4F8; 
+            --text: #2C5282;
+            --light-text: #718096;
+            --card-bg: #FFFFFF;
+            --accent: #63B3ED;
+            --border: #D1E1F0;
+        }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navbar */
+        .navbar { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); padding: 1rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 100; }
+        .navbar a { margin: 0 10px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .header { text-align: center; padding: 4rem 1.5rem 2rem; }
+        .header h1 { font-size: 2.5rem; margin: 0; letter-spacing: -1px; color: var(--text); }
+        
+        .container { max-width: 650px; margin: 0 auto; padding: 0 1.5rem 3rem; flex: 1; }
+        .card { background: var(--card-bg); border-radius: 24px; padding: 3rem 2.5rem; box-shadow: 0 10px 30px rgba(44, 82, 130, 0.05); border: 1px solid var(--border); text-align: center; }
+        
+        .vibe-text { font-size: 1.1rem; color: var(--light-text); margin-bottom: 2rem; }
+        .highlight { color: var(--accent); font-weight: 600; }
+        
+        /* Mission Grid */
+        .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; text-align: left; }
+        .mission-item h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 0.5rem; }
+        .mission-item p { font-size: 0.85rem; margin: 0; color: var(--light-text); }
+
+        /* Support Button */
+        .donate-btn { 
+            display: inline-block; 
+            margin-top: 1rem; 
+            background: var(--accent); 
+            color: white; 
+            padding: 12px 30px; 
+            border-radius: 12px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            cursor: pointer;
+            border: none;
+            transition: 0.2s; 
+        }
+        .donate-btn:hover { background: #4299E1; transform: translateY(-2px); }
+
+        /* Support Modal */
+        #donate-modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(44, 82, 130, 0.4); 
+            backdrop-filter: blur(4px);
+            z-index: 1000; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        .modal-content { 
+            background: white; 
+            padding: 2.5rem; 
+            border-radius: 24px; 
+            max-width: 320px; 
+            width: 85%; 
+            text-align: center; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+        }
+        .gcash-qr { width: 100%; border-radius: 12px; margin-bottom: 1rem; border: 1px solid var(--bg); }
+        .close-btn { margin-top: 1.5rem; color: var(--light-text); font-size: 0.8rem; text-decoration: underline; cursor: pointer; border: none; background: none; display: block; width: 100%; }
+
+        footer { background: #fff; padding: 3rem 1.5rem; text-align: center; border-top: 1px solid var(--border); margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <div id="donate-modal">
+        <div class="modal-content">
+            <h2 style="font-size: 1.2rem; margin-top: 0;">Support suroyIAO</h2>
+            <p style="font-size: 0.85rem; color: var(--light-text); margin-bottom: 1.5rem;">
+                Scan this code with GCash, Maya, or any banking app to help us stay live.
+            </p>
+            
+            <img src="GcashQR.jpg" alt="Support QR Code" class="gcash-qr">
+            
+            <p style="font-size: 0.75rem; color: var(--light-text); line-height: 1.4;">
+                We appreciate you helping us keep the servers running!
+            </p>
+            
+            <button class="close-btn" onclick="toggleModal()">Close</button>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="index.html">← Back to Guide</a>
+        <a href="index.html#conditions">Conditions</a>
+        <a href="index.html#rescue">Emergency</a>
+    </nav>
+
+    <div class="header">
+        <h1>About suroyIAO</h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <p style="font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem;">Island life, simplified. 🌴</p>
+            
+            <p class="vibe-text">
+                Siargao is a place of endless discovery, but finding the right info shouldn't feel like a chore. We built <span class="highlight">suroyIAO</span> to give travelers a cleaner, faster way to navigate the island. 
+            </p>
+
+            <p class="vibe-text">
+                Non-individual and strictly non-sponsored. We list spots because they're great, not because they paid us.
+            </p>
+
+            <hr style="border: 0; border-top: 1px solid var(--bg); margin: 2rem 0;">
+
+            <div class="mission-grid">
+                <div class="mission-item">
+                    <h3>Keeping it running</h3>
+                    <p>Minimal ads help cover hosting and server costs so the data stays live and free for everyone.</p>
+                </div>
+                <div class="mission-item">
+                    <h3>Live Data</h3>
+                    <p>Real-time weather, wind, and tide status pulled straight from the source for your convenience.</p>
+                </div>
+                <div class="mission-item">
+                    <h3>No Hidden Fees</h3>
+                    <p>Everything we do is built to save you time and help you find the "good stuff" on the island.</p>
+                </div>
+                <div class="mission-item">
+                    <h3>Mobile Ready</h3>
+                    <p>Designed to load fast even on spotty island data, so you can use it on the go.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: var(--bg); border-radius: 20px; border: 1px solid var(--border);">
+                <p style="font-size: 0.9rem; color: var(--text); line-height: 1.5; margin-bottom: 0.5rem;">
+                    If you find our guide helpful, any small support to help keep our servers running is deeply appreciated, but simply using the site is enough for us.
+                </p>
+                <button class="donate-btn" onclick="toggleModal()">Support the Project</button>
+            </div>
+
+            <p style="margin-top: 2rem; font-size: 0.9rem; font-style: italic; color: var(--light-text);">
+                Enjoy the waves, the coffee, and the community. See you out there!
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-size:0.75rem; color:var(--light-text); text-align:center; line-height: 1.8;">
+            <strong>suroyIAO</strong> © 2026 | Siargao, Simplified<br>
+            <a href="mailto:info@suroyIAO.com" style="color: var(--accent); text-decoration: none;">info@suroyIAO.com</a><br>
+            <a href="privacy.html" style="color: var(--light-text); text-decoration: underline; margin: 0 8px;">Privacy Policy</a> | 
+            <a href="terms.html" style="color: var(--light-text); text-decoration: underline; margin: 0 8px;">Terms of Service</a>
+        </p>
+    </footer>
+
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById('donate-modal');
+            modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('donate-modal');
+            if (event.target == modal) { modal.style.display = "none"; }
+        }
+    </script>
+
+</body>
+</html>
