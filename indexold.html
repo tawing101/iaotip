@@ -39,8 +39,8 @@
 
         /* Weather Grid */
         .condition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .condition-stat { background: var(--bg); padding: 1.2rem; border-radius: 16px; text-align: center; border: 1px solid var(--border); }
-        .stat-label { font-size: 0.65rem; color: var(--light-text); text-transform: uppercase; display: block; }
+        .condition-stat { background: var(--bg); padding: 1.2rem; border-radius: 16px; text-align: center; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center;}
+        .stat-label { font-size: 0.65rem; color: var(--light-text); text-transform: uppercase; display: block; margin-bottom: 4px; }
         .stat-value { font-weight: 600; font-size: 1rem; color: var(--text); }
 
         /* Rescue & Emergency */
@@ -82,10 +82,13 @@
         <div class="card full-width" id="conditions">
             <h2>Live Conditions</h2>
             <div class="condition-grid">
-                <div class="condition-stat"><span class="stat-label">Tide Status</span><span id="tide-status" class="stat-value">...</span></div>
-                <div class="condition-stat"><span class="stat-label">Wind Speed</span><span id="wind-speed" class="stat-value">-- kph</span></div>
-                <div class="condition-stat"><span class="stat-label">Average Swell</span><span class="stat-value">3-5 ft</span></div>
-                <div class="condition-stat"><span class="stat-label">Sunrise</span><span id="sunrise-time" class="stat-value">--:--</span></div>
+                <div class="condition-stat">
+                    <span class="stat-label">Tide Status</span>
+                    <span id="tide-status" class="stat-value" style="color: var(--accent);">Loading...</span>
+                </div>
+                <div class="condition-stat"><span class="stat-label">Wind Speed</span><span id="wind-speed" class="stat-value">Loading...</span></div>
+                <div class="condition-stat"><span class="stat-label">Average Swell</span><span id="swell-size" class="stat-value">Loading...</span></div>
+                <div class="condition-stat"><span class="stat-label">Sunrise</span><span id="sunrise-time" class="stat-value">Loading...</span></div>
             </div>
             <p style="text-align: center; margin-top: 1.5rem;">
                 <a href="https://www.surfline.com/surf-report/cloud-9/5842041f4e65fad6a7708d7a" target="_blank" style="font-weight: 600; color: var(--accent); text-decoration: none; font-size: 0.85rem;">📹 View live waves on Surfline Cam</a>
@@ -94,62 +97,62 @@
 
         <div class="card" id="dining">
             <h2>General Luna Dining</h2>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Roots+Siargao" target="_blank" class="item-link">Roots / Branch 📍</a><span class="item-desc">Premium fine dining & legendary brunch. A Siargao essential.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Bar+Ciao+Siargao" target="_blank" class="item-link">Bar Ciao IAO 📍</a><span class="item-desc">Authentic wood-fired pizza & vibrant Sunday live music sessions.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Basta+Siargao" target="_blank" class="item-link">Basta 📍</a><span class="item-desc">Fresh Mediterranean flavors & social roadside vibes.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Alpas+Siargao" target="_blank" class="item-link">Alpas 📍</a><span class="item-desc">Creative island dishes in a lively, communal setting.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Wild+Siargao" target="_blank" class="item-link">Wild Siargao 📍</a><span class="item-desc">High-quality craft burgers & steaks. Rustic-chic vibe.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Cloud+8+Siargao" target="_blank" class="item-link">Cloud 8 📍</a><span class="item-desc">Authentic Taiwanese dumplings & noodles near Cloud 9.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Backside+Burger+Siargao" target="_blank" class="item-link">Backside Burger 📍</a><span class="item-desc">The quintessential minimalist island burger staple.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Verde+Siargao" target="_blank" class="item-link">Verde 📍</a><span class="item-desc">Plant-forward bowls & healthy post-surf fuel.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Ferns+Siargao" target="_blank" class="item-link">Ferns 📍</a><span class="item-desc">Lush tropical garden dining with unique island fusion.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Fin+and+Fin+Siargao" target="_blank" class="item-link">Fin & Fin 📍</a><span class="item-desc">Fresh daily seafood catch & international island plates.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Las+Barricas+Siargao" target="_blank" class="item-link">Las Barricas 📍</a><span class="item-desc">Social Mexican-inspired tacos & sunset drinks.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Cumin+Siargao" target="_blank" class="item-link">Cumin 📍</a><span class="item-desc">Aromatic & authentic Indian cuisine in GL.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Yolk+Siargao" target="_blank" class="item-link">Yolk Siargao 📍</a><span class="item-desc">Modern breakfast classics & premium island coffee.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Mama's+Grill+Siargao" target="_blank" class="item-link">Mama's Grill 📍</a><span class="item-desc">The original local BBQ experience. Budget-friendly.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Roots+Siargao" target="_blank" class="item-link">Roots / Branch 📍</a><span class="item-desc">Premium fine dining & legendary brunch. A Siargao essential.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Bar+Ciao+Siargao" target="_blank" class="item-link">Bar Ciao IAO 📍</a><span class="item-desc">Authentic wood-fired pizza & vibrant Sunday live music sessions.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Basta+Siargao" target="_blank" class="item-link">Basta 📍</a><span class="item-desc">Fresh Mediterranean flavors & social roadside vibes.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Alpas+Siargao" target="_blank" class="item-link">Alpas 📍</a><span class="item-desc">Creative island dishes in a lively, communal setting.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Wild+Siargao" target="_blank" class="item-link">Wild Siargao 📍</a><span class="item-desc">High-quality craft burgers & steaks. Rustic-chic vibe.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Cloud+8+Siargao" target="_blank" class="item-link">Cloud 8 📍</a><span class="item-desc">Authentic Taiwanese dumplings & noodles near Cloud 9.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Backside+Burger+Siargao" target="_blank" class="item-link">Backside Burger 📍</a><span class="item-desc">The quintessential minimalist island burger staple.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Verde+Siargao" target="_blank" class="item-link">Verde 📍</a><span class="item-desc">Plant-forward bowls & healthy post-surf fuel.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Ferns+Siargao" target="_blank" class="item-link">Ferns 📍</a><span class="item-desc">Lush tropical garden dining with unique island fusion.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Fin+and+Fin+Siargao" target="_blank" class="item-link">Fin & Fin 📍</a><span class="item-desc">Fresh daily seafood catch & international island plates.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Las+Barricas+Siargao" target="_blank" class="item-link">Las Barricas 📍</a><span class="item-desc">Social Mexican-inspired tacos & sunset drinks.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Cumin+Siargao" target="_blank" class="item-link">Cumin 📍</a><span class="item-desc">Aromatic & authentic Indian cuisine in GL.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Yolk+Siargao" target="_blank" class="item-link">Yolk Siargao 📍</a><span class="item-desc">Modern breakfast classics & premium island coffee.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Mamas+Grill+Siargao" target="_blank" class="item-link">Mama's Grill 📍</a><span class="item-desc">The original local BBQ experience. Budget-friendly.</span></div>
         </div>
 
         <div class="card" id="explore">
             <h2>Island & Coffee</h2>
             <div class="sub-cat">Specialty Coffee</div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Whitebeard+Coffee+Siargao" target="_blank" class="item-link">Whitebeard 📍</a><span class="item-desc">Serious specialty roasts for the coffee purist.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Spotted+Pig+Siargao" target="_blank" class="item-link">Spotted Pig 📍</a><span class="item-desc">Chic brunch spot with high-quality roasts.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=GRWND+Siargao" target="_blank" class="item-link">GRWN 📍</a><span class="item-desc">Minimalist cafe. Quiet morning vibes.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Halika+Gelato+Siargao" target="_blank" class="item-link">Halika Gelato 📍</a><span class="item-desc">Premium artisan island gelato. Best treat.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Whitebeard+Coffee+Siargao" target="_blank" class="item-link">Whitebeard 📍</a><span class="item-desc">Serious specialty roasts for the coffee purist.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Spotted+Pig+Siargao" target="_blank" class="item-link">Spotted Pig 📍</a><span class="item-desc">Chic brunch spot with high-quality roasts.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=GRWN+Siargao" target="_blank" class="item-link">GRWN 📍</a><span class="item-desc">Minimalist cafe. Quiet morning vibes.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Halika+Gelato+Siargao" target="_blank" class="item-link">Halika Gelato 📍</a><span class="item-desc">Premium artisan island gelato. Best treat.</span></div>
 
             <div class="sub-cat">Island Adventures</div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Cloud+9+Siargao" target="_blank" class="item-link">Cloud 9 Boardwalk 📍</a><span class="item-desc">Iconic sunset views & world-famous surf.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=General+Luna+Port" target="_blank" class="item-link">Island Hopping Port 📍</a><span class="item-desc">Jump-off for Naked, Daku, & Guyam island tours.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Maasin+Bridge+Pilar" target="_blank" class="item-link">Maasin Bridge 📍</a><span class="item-desc">The famous bent palm & river swing.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Siargao+Coconut+View+Deck" target="_blank" class="item-link">Coconut View Deck 📍</a><span class="item-desc">The breathtaking "Sea of Palms" overlook.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Cloud+9+Siargao" target="_blank" class="item-link">Cloud 9 Boardwalk 📍</a><span class="item-desc">Iconic sunset views & world-famous surf.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=General+Luna+Boulevard+Port" target="_blank" class="item-link">Island Hopping Port 📍</a><span class="item-desc">Jump-off for Naked, Daku, & Guyam island tours.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Maasin+River+Swing" target="_blank" class="item-link">Maasin Bridge 📍</a><span class="item-desc">The famous bent palm & river swing.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Coconut+Trees+View+Deck+Siargao" target="_blank" class="item-link">Coconut View Deck 📍</a><span class="item-desc">The breathtaking "Sea of Palms" overlook.</span></div>
 
             <div class="sub-cat">Local Favorites</div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=TP+Food+House+Siargao" target="_blank" class="item-link">TP Food House 📍</a><span class="item-desc">Filipino comfort food at local prices.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Catangnan+BBQ+Siargao" target="_blank" class="item-link">Catangnan BBQ 📍</a><span class="item-desc">Sunset bridge grilling. Peak atmosphere.</span></div>
-            <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Sus+Pastilan+Siargao" target="_blank" class="item-link">Sus Pastilan 📍</a><span class="item-desc">Authentic island pastil. Perfect local snack.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=TP+Food+House+Siargao" target="_blank" class="item-link">TP Food House 📍</a><span class="item-desc">Filipino comfort food at local prices.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Catangnan+Bridge+Siargao" target="_blank" class="item-link">Catangnan BBQ 📍</a><span class="item-desc">Sunset bridge grilling. Peak atmosphere.</span></div>
+            <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Sus+Pastilan+Siargao" target="_blank" class="item-link">Sus Pastilan 📍</a><span class="item-desc">Authentic island pastil. Perfect local snack.</span></div>
         </div>
 
         <div class="card full-width" id="north">
             <h2>🌴 The North Trip</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
-                <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=HUNI+Siargao" target="_blank" class="item-link">HUNI Siargao 📍</a><span class="item-desc">San Isidro's hidden riverside sanctuary.</span></div>
-                <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=North+Dirty+Kitchen+Burgos" target="_blank" class="item-link">North Dirty Kitchen 📍</a><span class="item-desc">Elevated local cuisine in Burgos.</span></div>
-                <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Meraki+Siargao" target="_blank" class="item-link">MERAKI Siargao 📍</a><span class="item-desc">Soulful hangout & art space for travelers.</span></div>
-                <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Inner+Brew+Cafe+Burgos" target="_blank" class="item-link">Inner Brew 📍</a><span class="item-desc">Calm escape for coffee & North island vibes.</span></div>
-                <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Alegria+Beach+Siargao" target="_blank" class="item-link">Alegria Beach 📍</a><span class="item-desc">Pristine white sands & clear waters.</span></div>
-                <div class="item"><a href="https://www.google.com/maps/dir/?api=1&destination=Magpupungko+Pools" target="_blank" class="item-link">Magpupungko Pools 📍</a><span class="item-desc">Natural tidal rock pools. Low tide only.</span></div>
+                <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=HUNI+Siargao" target="_blank" class="item-link">HUNI Siargao 📍</a><span class="item-desc">San Isidro's hidden riverside sanctuary.</span></div>
+                <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=North+Dirty+Kitchen+Siargao" target="_blank" class="item-link">North Dirty Kitchen 📍</a><span class="item-desc">Elevated local cuisine in Burgos.</span></div>
+                <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=MERAKI+Siargao" target="_blank" class="item-link">MERAKI Siargao 📍</a><span class="item-desc">Soulful hangout & art space for travelers.</span></div>
+                <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Inner+Brew+Siargao" target="_blank" class="item-link">Inner Brew 📍</a><span class="item-desc">Calm escape for coffee & North island vibes.</span></div>
+                <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Alegria+Beach+Siargao" target="_blank" class="item-link">Alegria Beach 📍</a><span class="item-desc">Pristine white sands & clear waters.</span></div>
+                <div class="item"><a href="https://www.google.com/maps/search/?api=1&query=Magpupungko+Rock+Pools" target="_blank" class="item-link">Magpupungko Pools 📍</a><span class="item-desc">Natural tidal rock pools. Low tide only.</span></div>
             </div>
         </div>
 
         <div class="card full-width" id="rescue">
             <h2 style="color:var(--emer-text);">Rescue & Emergency</h2>
             <div class="rescue-entry">
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Siargao+District+Hospital" target="_blank" class="rescue-label">Siargao District Hospital (Dapa) 📍</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Siargao+District+Hospital" target="_blank" class="rescue-label">Siargao District Hospital (Dapa) 📍</a>
                 <a href="tel:09489006922" class="rescue-num">0948 900 6922</a>
             </div>
             <div class="rescue-entry">
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Metrodocs+General+Luna" target="_blank" class="rescue-label">Metrodocs (General Luna) 📍</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Metrodocs+General+Luna" target="_blank" class="rescue-label">Metrodocs (General Luna) 📍</a>
                 <a href="tel:09190585858" class="rescue-num">0919 058 5858</a>
             </div>
             <div class="rescue-entry">
@@ -177,6 +180,7 @@
             localStorage.setItem("suroyIaoConsent", "true");
             document.getElementById("cookie-consent").style.display = "none";
         }
+        
         window.onload = function() {
             if (!localStorage.getItem("suroyIaoConsent")) {
                 setTimeout(() => { document.getElementById("cookie-consent").style.display = "block"; }, 1000);
@@ -186,27 +190,94 @@
 
         async function fetchConditions() {
             try {
-                // Verified lat/lng for General Luna
-                const lat = 9.7906; 
-                const lng = 126.1519;
-                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=wind_speed_10m&daily=sunrise&timezone=auto`);
-                const data = await response.json();
+                // Exact Coordinates for General Luna
+                const lat = 9.7831; 
+                const lng = 126.1561;
+
+                // 1. Fetch Standard Weather (Wind & Sunrise)
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=wind_speed_10m&daily=sunrise&timezone=Asia%2FManila`);
+                const weatherData = await weatherRes.json();
                 
-                // Update Wind
-                document.getElementById('wind-speed').innerText = `${Math.round(data.current.wind_speed_10m)} kph`;
+                document.getElementById('wind-speed').innerText = `${Math.round(weatherData.current.wind_speed_10m)} kph`;
                 
-                // Update Sunrise
-                if (data.daily && data.daily.sunrise) {
-                    const sunriseStr = data.daily.sunrise[0].split('T')[1];
+                if (weatherData.daily && weatherData.daily.sunrise) {
+                    const sunriseStr = weatherData.daily.sunrise[0].split('T')[1];
                     document.getElementById('sunrise-time').innerText = sunriseStr;
                 }
 
-                // Simplified Tide Calculation for 2026
-                const hours = new Date().getHours();
-                document.getElementById('tide-status').innerText = (hours % 12 < 6) ? "Rising ↗" : "Falling ↘";
+                // 2. Fetch Marine Data (Tides & Swell)
+                const marineRes = await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lng}&hourly=sea_level_height_msl,wave_height&timezone=Asia%2FManila`);
+                
+                if (!marineRes.ok) throw new Error("Marine API failed");
+                
+                const marineData = await marineRes.json();
+                
+                // Find closest timestamp to right NOW to ensure accuracy
+                const nowMs = new Date().getTime();
+                let currentIndex = 0;
+                let minDiff = Infinity;
+                
+                for(let i = 0; i < marineData.hourly.time.length; i++) {
+                    const timeMs = new Date(marineData.hourly.time[i]).getTime();
+                    const diff = Math.abs(timeMs - nowMs);
+                    if(diff < minDiff) {
+                        minDiff = diff;
+                        currentIndex = i;
+                    }
+                }
+
+                // Handle Tide Status
+                const currentLevel = marineData.hourly.sea_level_height_msl[currentIndex];
+                const nextLevel = marineData.hourly.sea_level_height_msl[currentIndex + 1];
+                
+                const statusText = nextLevel > currentLevel ? "Rising" : "Falling";
+                const directionArrow = nextLevel > currentLevel ? "↗" : "↘";
+                
+                let peakTime = "--:--";
+                let peakType = "";
+                
+                for (let i = 1; i < 24; i++) {
+                    const checkIndex = currentIndex + i;
+                    if(checkIndex >= marineData.hourly.sea_level_height_msl.length - 1) break;
+
+                    const prev = marineData.hourly.sea_level_height_msl[checkIndex - 1];
+                    const curr = marineData.hourly.sea_level_height_msl[checkIndex];
+                    const next = marineData.hourly.sea_level_height_msl[checkIndex + 1];
+
+                    if (curr > prev && curr > next) {
+                        peakType = "High";
+                        const dateObj = new Date(marineData.hourly.time[checkIndex]);
+                        peakTime = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                        break;
+                    }
+                    if (curr < prev && curr < next) {
+                        peakType = "Low";
+                        const dateObj = new Date(marineData.hourly.time[checkIndex]);
+                        peakTime = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                        break;
+                    }
+                }
+                
+                const tideElement = document.getElementById('tide-status');
+                tideElement.innerHTML = `${statusText} ${directionArrow}<br><span style="font-size:0.75rem; color:var(--light-text); font-weight:400; margin-top:2px; display:inline-block;">Next ${peakType}: ${peakTime}</span>`;
+
+                // Handle Swell Size
+                const waveMeters = marineData.hourly.wave_height[currentIndex];
+                if (waveMeters !== undefined && waveMeters !== null) {
+                    const waveFeet = waveMeters * 3.28084;
+                    const minWave = Math.floor(waveFeet);
+                    const maxWave = Math.ceil(waveFeet);
+                    const displayWave = minWave === maxWave ? `${minWave} ft` : `${minWave}-${maxWave} ft`;
+                    document.getElementById('swell-size').innerText = displayWave;
+                } else {
+                    document.getElementById('swell-size').innerText = '-- ft';
+                }
+
             } catch (e) {
-                console.error("Weather Script Error:", e);
-                document.getElementById('tide-status').innerText = "Update error";
+                console.error("Condition Fetch Error:", e);
+                // Clean fallback without the chart link
+                document.getElementById('tide-status').innerHTML = `<span style="color:var(--light-text);">Data Unavailable</span>`;
+                document.getElementById('swell-size').innerText = '-- ft';
             }
         }
     </script>
