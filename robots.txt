@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Pointing to the sitemap to help crawlers find it faster
 Sitemap: https://suroyiao.com/sitemap.xml
