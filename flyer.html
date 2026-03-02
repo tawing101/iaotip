@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Print Flyer | suroyIAO</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23F0F9FF'/><circle cx='65' cy='38' r='16' fill='%23F59E0B'/><path d='M 20 58 Q 35 42 50 58 T 80 58' stroke='%230284C7' stroke-width='8' stroke-linecap='round' fill='none'/><path d='M 20 74 Q 35 58 50 74 T 80 74' stroke='%2338BDF8' stroke-width='8' stroke-linecap='round' fill='none'/></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23F0F9FF'/><circle cx='65' cy='38' r='16' fill='%23F59E0B'/><path d='M 20 58 Q 35 42 50 58 T 80 58' stroke='%230284C7' stroke-width='8' stroke-linecap='round' fill='none'/><path d='M 20 74 Q 35 58 50 74 T 80 74' stroke='%2338BDF8' stroke-width='8' stroke-linecap='round' fill='none'/></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Load the QR Code Generator Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root { --text: #1A202C; --accent: #63B3ED; }
         body { 
@@ -16,7 +18,7 @@
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            background: #fff;
+            background: #f8fafc;
         }
         .flyer-card {
             width: 8.5in; 
@@ -24,33 +26,45 @@
             padding: 4rem;
             box-sizing: border-box;
             text-align: center;
+            background: #ffffff;
             border: 2px solid #E2E8F0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
         h1 { font-size: 5.5rem; margin: 0; letter-spacing: -3px; color: var(--text); }
         .tagline { font-size: 1.6rem; color: #718096; margin-top: -10px; font-weight: 300; }
         
         .qr-section { margin: 3rem 0; }
-        .qr-image { 
+        
+        /* Updated QR Wrapper to house the dynamic canvas */
+        .qr-wrapper { 
             width: 320px; 
             height: 320px; 
             margin: 0 auto; 
-            display: block; 
-            padding: 10px;
-            background: white;
-            border: 1px solid #F0F4F8;
+            padding: 15px;
+            background: #ffffff;
+            border: 2px solid #F0F4F8;
+            border-radius: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .qr-wrapper canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1.2rem;
         }
 
-        .instructions { font-size: 1.8rem; font-weight: 600; line-height: 1.2; margin-top: 2rem; }
+        .instructions { font-size: 1.8rem; font-weight: 600; line-height: 1.2; margin-top: 2.5rem; }
         .url { font-size: 1.3rem; color: var(--accent); margin-top: 1rem; letter-spacing: 1px; font-weight: 600; }
 
         .footer-logo { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #A0AEC0; }
 
         @media print {
-            body { padding: 0; }
-            .flyer-card { border: none; width: 100%; height: 100%; }
+            body { padding: 0; background: none; }
+            .flyer-card { border: none; width: 100%; height: 100%; box-shadow: none; }
             .print-btn { display: none; }
         }
 
@@ -59,7 +73,9 @@
             background: var(--accent); color: white; border: none;
             padding: 12px 24px; border-radius: 12px; font-weight: 600; cursor: pointer;
             box-shadow: 0 4px 12px rgba(99, 179, 237, 0.3);
+            transition: 0.2s;
         }
+        .print-btn:hover { background: #4299E1; transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -73,7 +89,8 @@
         </header>
 
         <main class="qr-section">
-            <img src="SuroyIAOqr1.png" alt="suroyIAO QR Code" class="qr-image">
+            <!-- Dynamic QR Code Container -->
+            <div id="qrcode-container" class="qr-wrapper"></div>
             
             <p class="instructions">Scan for live tide status,<br>surf conditions & local spots.</p>
             <p class="url">www.suroyIAO.com</p>
@@ -84,7 +101,112 @@
         </footer>
     </div>
 
+    <!-- Hidden Elements for Generation -->
+    <div id="hidden-qr" style="display:none"></div>
+    <svg id="source-logo" style="display:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+        <rect width="100" height="100" rx="28" fill="#F0F9FF" />
+        <circle cx="65" cy="38" r="16" fill="#F59E0B" />
+        <path d="M 20 58 Q 35 42 50 58 T 80 58" stroke="#0284C7" stroke-width="8" stroke-linecap="round" fill="none" />
+        <path d="M 20 74 Q 35 58 50 74 T 80 74" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" fill="none" />
+    </svg>
+
+    <script>
+        // Generate the high-res QR code immediately when the page loads
+        window.onload = function() {
+            const targetUrl = "https://suroyiao.com";
+            const qrcodeContainer = document.getElementById("qrcode-container");
+            const sourceLogo = document.getElementById("source-logo");
+            
+            // Hardcoded Brand Colors from your QR Studio
+            const fgColor = "#0284C7"; // Blue Wave
+            const sqColor = "#000000"; // Black Dots
+            const bgColor = "#F0F9FF"; // Light Canvas
+
+            // Generate base QR code
+            const qrObj = new QRCode(document.getElementById("hidden-qr"), {
+                text: targetUrl,
+                width: 1000,
+                height: 1000,
+                colorDark: fgColor,
+                colorLight: bgColor,
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Convert SVG to Image Object
+            const svgData = new XMLSerializer().serializeToString(sourceLogo);
+            const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+            const svgUrl = URL.createObjectURL(svgBlob);
+            const logoImg = new Image();
+
+            logoImg.onload = () => {
+                setTimeout(() => {
+                    const sourceCanvas = document.querySelector("#hidden-qr canvas");
+                    if (!sourceCanvas) return;
+
+                    const finalCanvas = document.createElement("canvas");
+                    finalCanvas.width = 1000;
+                    finalCanvas.height = 1000;
+                    const ctx = finalCanvas.getContext("2d");
+
+                    // Draw base QR
+                    ctx.drawImage(sourceCanvas, 0, 0);
+
+                    // Custom Painter for Corner Squares
+                    if (qrObj._oQRCode && qrObj._oQRCode.moduleCount) {
+                        const moduleCount = qrObj._oQRCode.moduleCount;
+                        const tileW = 1000 / moduleCount;
+
+                        function drawBox(col, row, wMods, hMods, color) {
+                            const x = Math.round(col * tileW);
+                            const y = Math.round(row * tileW);
+                            const w = Math.ceil((col + wMods) * tileW) - Math.floor(col * tileW);
+                            const h = Math.ceil((row + hMods) * tileW) - Math.floor(row * tileW);
+                            ctx.fillStyle = color;
+                            ctx.fillRect(x, y, w, h);
+                        }
+
+                        // Inverted Style: Blue Ring, Black Dot
+                        function drawFindingPattern(startX, startY) {
+                            drawBox(startX, startY, 7, 7, fgColor);           // Outer Ring (Wave Color)
+                            drawBox(startX + 1, startY + 1, 5, 5, bgColor);   // Inner Gap (Canvas)
+                            drawBox(startX + 2, startY + 2, 3, 3, sqColor);   // Center Dot (Black)
+                        }
+
+                        drawFindingPattern(0, 0);                 // Top-Left
+                        drawFindingPattern(moduleCount - 7, 0);   // Top-Right
+                        drawFindingPattern(0, moduleCount - 7);   // Bottom-Left
+                    }
+
+                    // Draw Center Logo Buffer
+                    const logoSize = 240; 
+                    const x = (1000 - logoSize) / 2;
+                    const y = (1000 - logoSize) / 2;
+                    
+                    ctx.fillStyle = bgColor;
+                    ctx.beginPath();
+                    const radius = 35;
+                    ctx.moveTo(x - 15 + radius, y - 15);
+                    ctx.lineTo(x - 15 + logoSize + 30 - radius, y - 15);
+                    ctx.quadraticCurveTo(x - 15 + logoSize + 30, y - 15, x - 15 + logoSize + 30, y - 15 + radius);
+                    ctx.lineTo(x - 15 + logoSize + 30, y - 15 + logoSize + 30 - radius);
+                    ctx.quadraticCurveTo(x - 15 + logoSize + 30, y - 15 + logoSize + 30, x - 15 + logoSize + 30 - radius, y - 15 + logoSize + 30);
+                    ctx.lineTo(x - 15 + radius, y - 15 + logoSize + 30);
+                    ctx.quadraticCurveTo(x - 15, y - 15 + logoSize + 30, x - 15, y - 15 + logoSize + 30 - radius);
+                    ctx.lineTo(x - 15, y - 15 + radius);
+                    ctx.quadraticCurveTo(x - 15, y - 15, x - 15 + radius, y - 15);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    // Draw Logo
+                    ctx.drawImage(logoImg, x, y, logoSize, logoSize);
+
+                    qrcodeContainer.appendChild(finalCanvas);
+                    URL.revokeObjectURL(svgUrl);
+                }, 100);
+            };
+            
+            logoImg.src = svgUrl;
+        };
+    </script>
 </body>
 </html>
-
-
