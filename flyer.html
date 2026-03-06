@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Print Flyer | suroyIAO</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23F0F9FF'/><circle cx='65' cy='38' r='16' fill='%23F59E0B'/><path d='M 20 58 Q 35 42 50 58 T 80 58' stroke='%230284C7' stroke-width='8' stroke-linecap='round' fill='none'/><path d='M 20 74 Q 35 58 50 74 T 80 74' stroke='%2338BDF8' stroke-width='8' stroke-linecap='round' fill='none'/></svg>">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f8fafc">
+    
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Load the QR Code Generator Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root { --text: #1A202C; --accent: #63B3ED; }
@@ -38,7 +41,6 @@
         
         .qr-section { margin: 3rem 0; }
         
-        /* Updated QR Wrapper to house the dynamic canvas */
         .qr-wrapper { 
             width: 320px; 
             height: 320px; 
@@ -46,7 +48,7 @@
             padding: 15px;
             background: #ffffff;
             border: 2px solid #F0F4F8;
-            border-radius: 2rem;
+            border-radius: 2.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -54,7 +56,7 @@
         .qr-wrapper canvas {
             max-width: 100%;
             height: auto;
-            border-radius: 1.2rem;
+            border-radius: 1.5rem;
         }
 
         .instructions { font-size: 1.8rem; font-weight: 600; line-height: 1.2; margin-top: 2.5rem; }
@@ -89,7 +91,6 @@
         </header>
 
         <main class="qr-section">
-            <!-- Dynamic QR Code Container -->
             <div id="qrcode-container" class="qr-wrapper"></div>
             
             <p class="instructions">Scan for live tide status,<br>surf conditions & local spots.</p>
@@ -101,7 +102,6 @@
         </footer>
     </div>
 
-    <!-- Hidden Elements for Generation -->
     <div id="hidden-qr" style="display:none"></div>
     <svg id="source-logo" style="display:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
         <rect width="100" height="100" rx="28" fill="#F0F9FF" />
@@ -111,18 +111,15 @@
     </svg>
 
     <script>
-        // Generate the high-res QR code immediately when the page loads
         window.onload = function() {
             const targetUrl = "https://suroyiao.com";
             const qrcodeContainer = document.getElementById("qrcode-container");
             const sourceLogo = document.getElementById("source-logo");
             
-            // Hardcoded Brand Colors from your QR Studio
-            const fgColor = "#0284C7"; // Blue Wave
-            const sqColor = "#000000"; // Black Dots
-            const bgColor = "#F0F9FF"; // Light Canvas
+            const fgColor = "#0284C7"; 
+            const sqColor = "#000000"; 
+            const bgColor = "#F0F4F8";
 
-            // Generate base QR code
             const qrObj = new QRCode(document.getElementById("hidden-qr"), {
                 text: targetUrl,
                 width: 1000,
@@ -132,7 +129,6 @@
                 correctLevel: QRCode.CorrectLevel.H
             });
 
-            // Convert SVG to Image Object
             const svgData = new XMLSerializer().serializeToString(sourceLogo);
             const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
             const svgUrl = URL.createObjectURL(svgBlob);
@@ -148,10 +144,8 @@
                     finalCanvas.height = 1000;
                     const ctx = finalCanvas.getContext("2d");
 
-                    // Draw base QR
                     ctx.drawImage(sourceCanvas, 0, 0);
 
-                    // Custom Painter for Corner Squares
                     if (qrObj._oQRCode && qrObj._oQRCode.moduleCount) {
                         const moduleCount = qrObj._oQRCode.moduleCount;
                         const tileW = 1000 / moduleCount;
@@ -165,19 +159,17 @@
                             ctx.fillRect(x, y, w, h);
                         }
 
-                        // Inverted Style: Blue Ring, Black Dot
                         function drawFindingPattern(startX, startY) {
-                            drawBox(startX, startY, 7, 7, fgColor);           // Outer Ring (Wave Color)
-                            drawBox(startX + 1, startY + 1, 5, 5, bgColor);   // Inner Gap (Canvas)
-                            drawBox(startX + 2, startY + 2, 3, 3, sqColor);   // Center Dot (Black)
+                            drawBox(startX, startY, 7, 7, fgColor);
+                            drawBox(startX + 1, startY + 1, 5, 5, bgColor);
+                            drawBox(startX + 2, startY + 2, 3, 3, sqColor);
                         }
 
-                        drawFindingPattern(0, 0);                 // Top-Left
-                        drawFindingPattern(moduleCount - 7, 0);   // Top-Right
-                        drawFindingPattern(0, moduleCount - 7);   // Bottom-Left
+                        drawFindingPattern(0, 0);
+                        drawFindingPattern(moduleCount - 7, 0);
+                        drawFindingPattern(0, moduleCount - 7);
                     }
 
-                    // Draw Center Logo Buffer
                     const logoSize = 240; 
                     const x = (1000 - logoSize) / 2;
                     const y = (1000 - logoSize) / 2;
@@ -197,14 +189,11 @@
                     ctx.closePath();
                     ctx.fill();
 
-                    // Draw Logo
                     ctx.drawImage(logoImg, x, y, logoSize, logoSize);
-
                     qrcodeContainer.appendChild(finalCanvas);
                     URL.revokeObjectURL(svgUrl);
                 }, 100);
             };
-            
             logoImg.src = svgUrl;
         };
     </script>
